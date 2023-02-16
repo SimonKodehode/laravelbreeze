@@ -17,12 +17,18 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    //Changed to Homepage
+    return Inertia::render('HomePage', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
+});
+
+
+Route::get('/blogs', function(){
+    return Inertia::render('Blogs');
 });
 
 Route::get('/dashboard', function () {
