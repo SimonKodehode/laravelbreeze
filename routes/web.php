@@ -24,12 +24,12 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');//Added name for route
 
 
 Route::get('/blogs', function(){
     return Inertia::render('Blogs');
-});
+})->name('blogs'); //Added name here too
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
