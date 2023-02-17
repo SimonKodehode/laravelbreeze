@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -31,6 +32,9 @@ Route::get('/', function () {
 Route::get('/blogs', function(){
     return Inertia::render('Blogs');
 })->name('blogs'); //Added name here too
+
+Route::get('/blog', [PagesController::class, 'blog']);
+
 
 Route::resource('/blog', PostsController::class);
 
