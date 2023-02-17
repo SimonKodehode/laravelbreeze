@@ -57,7 +57,7 @@ export default {
                     </div>
                     <div class="blog-left-bottom">
                         <button class="blog-readmore" @click="setActive">
-                            Readmore
+                            Read more
                         </button>
                     </div>
                 </div>

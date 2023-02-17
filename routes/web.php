@@ -33,11 +33,9 @@ Route::get('/blogs', function(){
     return Inertia::render('Blogs');
 })->name('blogs'); //Added name here too
 
-// This is just a test, eventually this will render under /blogs instead
-Route::get('/blog', [PagesController::class, 'blog']);
+Route::get('/posts', [PagesController::class, 'posts']);
 
-// Same here
-Route::resource('/blog', PostsController::class);
+Route::resource('/posts', PostsController::class);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

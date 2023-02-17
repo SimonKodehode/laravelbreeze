@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
-use Inertia\Inertia;
 
 class PostsController extends Controller
 {
@@ -16,11 +15,8 @@ class PostsController extends Controller
     // displays the blog index page with the posts
     public function index()
     {
-	  // this is just a test to show that it returns an array under /blog. 
-	 // The idea is that each blog post will render under /blogs
-	    return view('blog.index')
+	    return view('posts.index')
 		    ->with('posts', Post::orderBy('updated_at', 'DESC')->get());
-	
     }
 
     /**
