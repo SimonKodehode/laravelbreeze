@@ -1,0 +1,17 @@
+//Colors
+$bg: #bfe3f7;
+$blue-dark: #3b4d62;
+//Text
+$text: #383838;
+$text-light: #f2f7ff;
+$text-blog: #444649;
+
+//Breakpoints
+$small: 480px;
+
+//Media query
+@mixin mq($size) {
+    @media (min-width: $size) {
+        @content;
+    }
+}

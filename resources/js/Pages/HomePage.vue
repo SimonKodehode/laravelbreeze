@@ -12,11 +12,18 @@ export default {
 <template>
     <AppLayout>
         <main class="hero">
-            <h2 class="hero-header">Welcome to</h2>
-            <h3 class="hero-subheader">Breeze</h3>
-            <div class="hero-links">
-                <Link class="hero-link">Share</Link>
-                <Link :href="route('blogs')" class="hero-link">Explore</Link>
+            <div class="hero-container">
+                <div class="hero-wrap">
+                    <h2 class="hero-header">Welcome to</h2>
+
+                    <h3 class="hero-subheader">Breeze</h3>
+                </div>
+                <div class="hero-links">
+                    <Link class="hero-link">SHARE</Link>
+                    <Link :href="route('blogs')" class="hero-link"
+                        >EXPLORE</Link
+                    >
+                </div>
             </div>
         </main>
     </AppLayout>
