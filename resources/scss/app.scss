@@ -1,148 +1,11 @@
 @import "./global.scss";
 @import "./variables.scss";
-.header {
-    background: #ffffff;
-    border-bottom: 1px solid #a3ffec;
-    position: absolute;
-    width: 100vw;
-    top: 0;
-    &-wrap {
-        margin: auto;
-        display: flex;
-        justify-content: space-between;
-        width: 80%;
-    }
-    .breeze-logo {
-        filter: drop-shadow(-1px 3px 2px #bebebe);
-        transition: all 0.4s ease;
-        &:hover {
-            transform: scale(1.1);
-        }
-    }
-    &-text {
-        align-self: center;
-        font-size: 20px;
-        font-weight: bold;
-        color: #3f3838;
-        padding: 10px;
-    }
-
-    &-links {
-        display: flex;
-        align-items: center;
-    }
-
-    &-link {
-        padding: 10px;
-        align-self: center;
-        transition: all 0.4s ease;
-        font-family: "Roboto";
-
-        &:hover {
-            opacity: 0.5;
-        }
-    }
-}
-/* Hero styles */
-.hero {
-    text-align: center;
-    height: 100vh;
-    display: flex;
-    &-container {
-        width: 90vw;
-        margin: auto;
-        height: auto;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
-    }
-    &-wrap {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        line-height: 400%;
-        @include mq(470px) {
-            line-height: 500%;
-        }
-        @include mq(768px) {
-            line-height: 600%;
-        }
-        @include mq(1024px) {
-            line-height: 700%;
-        }
-    }
-
-    &-header {
-        font-family: "Bebas Neue";
-
-        font-size: 50px;
-        color: #383838;
-        text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
-        font-weight: 700;
-        @include mq(470px) {
-            font-size: 70px;
-        }
-        @include mq(768px) {
-            font-size: 90px;
-        }
-        @include mq(1024px) {
-            font-size: 100px;
-        }
-    }
-    &-shape-wrapper {
-        width: 400px;
-        height: 5px;
-    }
-    &-shape {
-        height: 100%;
-        width: 100%;
-    }
-
-    &-subheader {
-        font-size: 50px;
-        color: #fff;
-        text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
-        font-weight: bold;
-        font-family: "Bebas Neue";
-        @include mq(470px) {
-            font-size: 70px;
-        }
-        @include mq(768px) {
-            font-size: 90px;
-        }
-        @include mq(1024px) {
-            font-size: 100px;
-        }
-    }
-
-    &-links {
-        margin: 100px auto 0 auto;
-        width: 200px;
-        display: flex;
-        justify-content: space-between;
-        font-family: "Roboto";
-        font-weight: 500;
-        color: $text;
-    }
-
-    &-link {
-        font-size: 20px;
-        border-bottom-width: 0px;
-        transform-origin: middle;
-        transition: all 0.3s ease;
-        border-bottom-width: 0px;
-
-        &:hover {
-            opacity: 0.5;
-            border-bottom-width: 50px;
-            border-bottom: 1px solid $text;
-        }
-    }
-}
-/* Hero styles end */
-
+//Homepage styles
+@import "./homePage.scss";
+//Blog card styles
+@import "./blogCard.scss";
+//Static layout styles
+@import "./appLayout.scss";
 .blog {
     display: flex;
     flex-direction: column;
@@ -158,132 +21,20 @@
         flex-direction: column;
         justify-content: center;
     }
-    &-card {
-        background: #fff;
-        box-shadow: 1.3px 2.3px 5.3px rgba(0, 0, 0, 0.028),
-            4.5px 7.8px 17.9px rgba(0, 0, 0, 0.042),
-            20px 35px 80px rgba(0, 0, 0, 0.07);
+}
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: 50px;
-        width: 90%;
-        max-width: 500px;
-    }
+.wrapper {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
 
-    &-card-wrapper {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-    }
-
-    &-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px;
-    }
-
-    &-user-wrap {
-        display: flex;
-        align-items: center;
-    }
-    &-user_icon {
-        color: #5275a7;
-        font-size: 20px;
-        @include mq(470px) {
-            font-size: 25px;
-        }
-    }
-
-    &-user_name {
-        font-size: 13px;
-        font-family: "Bebas Neue";
-        color: $text;
-        margin-left: 5px;
-        @include mq(470px) {
-            font-size: 18px;
-        }
-    }
-
-    &-created_at {
-        font-size: 10px;
-        font-family: "Roboto";
-        @include mq(470px) {
-            font-size: 15px;
-        }
-    }
-
-    &-text-wrap {
-    }
-
-    &-headline {
-        font-family: "Anton";
-
-        font-size: 16px;
-        padding: 10px;
-        color: $text-blog;
-
-        @include mq(360px) {
-            font-size: 20px;
-        }
-        @include mq(420px) {
-            font-size: 22px;
-        }
-        @include mq(470px) {
-            font-size: 27px;
-        }
-    }
-
-    &-p {
-        display: none;
-        font-family: "Roboto";
-    }
-
-    .show {
-        display: block;
-        font-size: 13px;
-        padding: 10px;
-    }
-
-    &-footer {
-        font-size: 13px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px;
-    }
-
-    &-action {
-        display: flex;
-        align-items: center;
-        color: $blue-dark;
-    }
-
-    &-likes {
-        display: flex;
-        align-items: center;
-        margin-right: 10px;
-        height: 50%;
-    }
-
-    &-like {
-        margin-right: 5px;
-        font-size: 12px;
-    }
-    &-likes-number {
-        font-weight: bold;
-        font-size: 12px;
-    }
-
-    &-comment {
-        font-family: "Roboto";
-        font-weight: 500;
-    }
-
-    &-readmore {
-        font-weight: 600;
-        color: $blue-dark;
-    }
+.container {
+    width: 90vw;
+    margin: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
 }

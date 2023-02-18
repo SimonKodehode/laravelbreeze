@@ -1,0 +1,96 @@
+.hero {
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    &-container {
+        margin: auto;
+        height: auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+    }
+    &-wrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        line-height: 400%;
+        @include mq(470px) {
+            line-height: 500%;
+        }
+        @include mq(768px) {
+            line-height: 600%;
+        }
+        @include mq(1024px) {
+            line-height: 700%;
+        }
+    }
+
+    &-header {
+        font-family: "Bebas Neue";
+
+        font-size: 50px;
+        color: #383838;
+        text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+        font-weight: 700;
+        @include mq(470px) {
+            font-size: 70px;
+        }
+        @include mq(768px) {
+            font-size: 90px;
+        }
+        @include mq(1024px) {
+            font-size: 100px;
+        }
+    }
+    &-shape-wrapper {
+        width: 400px;
+        height: 5px;
+    }
+    &-shape {
+        height: 100%;
+        width: 100%;
+    }
+
+    &-subheader {
+        font-size: 50px;
+        color: #fff;
+        text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+        font-weight: bold;
+        font-family: "Bebas Neue";
+        @include mq(470px) {
+            font-size: 70px;
+        }
+        @include mq(768px) {
+            font-size: 90px;
+        }
+        @include mq(1024px) {
+            font-size: 100px;
+        }
+    }
+
+    &-links {
+        margin: 100px auto 0 auto;
+        width: 200px;
+        display: flex;
+        justify-content: space-between;
+        font-family: "Roboto";
+        font-weight: 500;
+        color: $text;
+    }
+
+    &-link {
+        font-size: 20px;
+        border-bottom-width: 0px;
+        transform-origin: middle;
+        transition: all 0.3s ease;
+        border-bottom-width: 0px;
+
+        &:hover {
+            opacity: 0.5;
+            border-bottom-width: 50px;
+            border-bottom: 1px solid $text;
+        }
+    }
+}
