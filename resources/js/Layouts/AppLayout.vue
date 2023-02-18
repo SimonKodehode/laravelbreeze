@@ -66,5 +66,9 @@ export default {
             </ul>
         </div>
     </header>
-    <slot />
+    <main class="wrapper">
+        <div class="container">
+            <slot />
+        </div>
+    </main>
 </template>
