@@ -46,7 +46,17 @@ export default {
                     </g>
                 </svg>
             </Link>
-            <ul class="header-links">
+            <ul class="header-links" v-if="$page.props.auth.user">
+                <li class="header-link">
+                    <Link :href="route('dashboard')">DASHBOARD</Link>
+                </li>
+                <li class="header-link">
+                    <Link :href="route('logout')" method="post" as="button"
+                        >LOGOUT</Link
+                    >
+                </li>
+            </ul>
+            <ul class="header-links" v-else>
                 <li class="header-link">
                     <Link :href="route('login')">LOGIN</Link>
                 </li>
