@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Inertia\Inertia;
 
 class PostsController extends Controller
 {
@@ -15,8 +16,8 @@ class PostsController extends Controller
     // displays the blog index page with the posts
     public function index()
     {
-	    return view('posts.index')
-		    ->with('posts', Post::orderBy('updated_at', 'DESC')->get());
+              $posts = Post::with('user')->paginate(10);
+              return Inertia::render('Blogs', ['posts' => $posts]);
     }
 
     /**

@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,9 +37,7 @@ Route::get('/blogs/new', function () {
 return Inertia::render('NewBlog');
 })->name('blogs.new');
 
-Route::get('/posts', [PagesController::class, 'posts']);
-
-Route::resource('/posts', PostsController::class);
+Route::get('/posts', [PostsController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
