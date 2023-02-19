@@ -32,6 +32,10 @@ Route::get('/', function () {
 Route::get('/blogs', function(){
     return Inertia::render('Blogs');
 })->name('blogs'); //Added name here too
+//Satt opp temporary her bare for å se hvordan siden blir
+Route::get('/blogs/new', function () {
+return Inertia::render('NewBlog');
+})->name('blogs.new');
 
 Route::get('/posts', [PagesController::class, 'posts']);
 

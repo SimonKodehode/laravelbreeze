@@ -18,7 +18,7 @@ export default {
                 <h3 class="hero-subheader">Breeze</h3>
             </div>
             <div class="hero-links">
-                <Link class="hero-link">SHARE</Link>
+                <Link :href="route('blogs.new')" class="hero-link">SHARE</Link>
                 <Link :href="route('blogs')" class="hero-link">EXPLORE</Link>
             </div>
         </div>
