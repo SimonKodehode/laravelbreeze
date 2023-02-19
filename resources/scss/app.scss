@@ -6,6 +6,8 @@
 @import "./blogCard.scss";
 //Static layout styles
 @import "./appLayout.scss";
+//Dashboard styles
+@import "./dashboard.scss";
 .blog {
     display: flex;
     flex-direction: column;
@@ -24,7 +26,7 @@
 }
 
 .wrapper {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
 }
