@@ -28,16 +28,12 @@ Route::get('/', function () {
     ]);
 })->name('home');//Added name for route
 
-
-Route::get('/blogs', function(){
-    return Inertia::render('Blogs');
-})->name('blogs'); //Added name here too
-//Satt opp temporary her bare for å se hvordan siden blir
 Route::get('/blogs/new', function () {
 return Inertia::render('NewBlog');
 })->name('blogs.new');
 
-Route::get('/posts', [PostsController::class, 'index']);
+// changed blogs route to go through the PostsController with inertia::render
+Route::get('/blogs', [PostsController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
