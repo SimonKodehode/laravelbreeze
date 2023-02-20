@@ -27,7 +27,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('NewBlog');
     }
 
     /**
@@ -38,7 +38,17 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+	    $validatedData = $request->validate([
+		    'title' => 'required|max:255',
+		    'body' => 'required',
+	    ]);
+
+	    $post = new Post;
+	    $post->title = $validatedData['title'];
+	    $post->body = $validatedData['body'];
+	    $post->save();
+
+	    return redirect()->route('posts.index');
     }
 
     /**
@@ -58,9 +68,11 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+	    return Inertia::render('Posts/Edit', [
+		    'post' => $post,
+	    ]);
     }
 
     /**
@@ -70,9 +82,18 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+	    $validatedData = $request->validate([
+		'title' => 'required|max:255',
+		'body' => 'required',
+	    ]);
+
+	    $post->title = $validatedData['title'];
+	    $post->body = $validatedData['body'];
+	    $post->save();
+
+	    return redirect()->route('posts.index');
     }
 
     /**
@@ -81,8 +102,10 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+    	return redirect()->route('posts.index');
     }
 }

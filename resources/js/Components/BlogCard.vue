@@ -52,7 +52,7 @@ export default {
                     <button class="blog-card-comment">Comment</button>
                 </div>
                 <button class="blog-card-readmore" @click="setActive">
-                    Readmore
+                    Read more
                 </button>
             </footer>
         </div>

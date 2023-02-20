@@ -35,6 +35,8 @@ return Inertia::render('NewBlog');
 // changed blogs route to go through the PostsController with inertia::render
 Route::get('/blogs', [PostsController::class, 'index']);
 
+Route::resource('blogs', PostsController::class);
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
