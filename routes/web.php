@@ -33,7 +33,7 @@ return Inertia::render('NewBlog');
 })->name('blogs.new');
 
 // changed blogs route to go through the PostsController with inertia::render
-Route::get('/blogs', [PostsController::class, 'index']);
+Route::get('/blogs', [PostsController::class, 'index'])->name('blogs');//Added name here
 
 Route::resource('blogs', PostsController::class);
 

@@ -3,7 +3,7 @@ export default {
     //States
     data() {
         return {
-            active: false,
+            active: true,
         };
     },
 
@@ -59,7 +59,7 @@ export default {
                     <button class="blog-card-comment">Comment</button>
                 </div>
                 <button class="blog-card-readmore" @click="setActive">
-                    Read more
+                    Minimize
                 </button>
             </footer>
         </div>

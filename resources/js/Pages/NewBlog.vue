@@ -18,6 +18,7 @@ export default {
 </script>
 
 <template>
+    <Head title="New-Blog" />
     <AppLayout>
         <section class="new-blog">
             <h1 class="new-blog-headline">NEW BLOGPOST</h1>
