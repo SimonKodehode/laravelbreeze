@@ -12,6 +12,16 @@ export default {
             this.active = !this.active;
         },
     },
+
+    props: {
+        username: String,
+        created: String,
+        title: String,
+        desc: String,
+        likes: Number,
+    },
+
+    mounted() {},
 };
 </script>
 
@@ -25,19 +35,16 @@ export default {
                         icon="fa-solid fa-user-circle"
                     ></FontAwesomeIcon>
 
-                    <h1 class="blog-card-user_name">Username</h1>
+                    <h1 class="blog-card-user_name">{{ username }}</h1>
                 </div>
-                <p class="blog-card-created_at">March 20</p>
+                <p class="blog-card-created_at">{{ created }}</p>
             </header>
             <div class="blog-card-text-wrap">
                 <h1 class="blog-card-headline">
-                    Why the last season of GOT sucked
+                    {{ title }}
                 </h1>
                 <p :class="active ? 'blog-card-p show' : 'blog-card-p'">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Alias eos quam deleniti quae tempora dolorem veniam maiores,
-                    aut sequi eaque? Ullam delectus explicabo vel laborum ab
-                    vitae maxime dolores sint.
+                    {{ desc }}
                 </p>
             </div>
             <footer class="blog-card-footer">
@@ -47,7 +54,7 @@ export default {
                             class="blog-card-like"
                             icon="fa-solid fa-thumbs-up"
                         ></FontAwesomeIcon>
-                        <p class="blog-card-likes-number">200</p>
+                        <p class="blog-card-likes-number">{{ likes }}</p>
                     </button>
                     <button class="blog-card-comment">Comment</button>
                 </div>

@@ -7,6 +7,18 @@ export default {
         AppLayout,
         BlogCard,
     },
+
+    data() {
+        return {
+            data: this.posts.data,
+        };
+    },
+
+    props: ["posts"],
+
+    mounted() {
+        console.log(this.data);
+    },
 };
 </script>
 
@@ -14,7 +26,15 @@ export default {
     <AppLayout>
         <section class="blog">
             <div class="blog-container">
-                <BlogCard></BlogCard>
+                <div v-for="post in data">
+                    <BlogCard
+                        :username="post.user.name"
+                        :created="post.created_at"
+                        :title="post.title"
+                        :desc="post.description"
+                        :likes="post.likes"
+                    ></BlogCard>
+                </div>
             </div>
         </section>
     </AppLayout>
