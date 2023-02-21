@@ -41,11 +41,13 @@ class PostsController extends Controller
 	    $validatedData = $request->validate([
 		    'title' => 'required|max:255',
 		    'body' => 'required',
+		    'image' => 'required|mimes:jpg,png,jpeg|max5848'
 	    ]);
 
 	    $post = new Post;
 	    $post->title = $validatedData['title'];
 	    $post->body = $validatedData['body'];
+	    $post->image = $validatedData['image'];
 	    $post->save();
 
 	    return redirect()->route('posts.index');
