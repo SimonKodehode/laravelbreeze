@@ -42,6 +42,7 @@ class PostsController extends Controller
     {
 	    $validatedData = $request->validate([
 		    'title' => 'required|max:255',
+		    'description' => 'required',
 		    'body' => 'required',
 		    'image' => 'required|mimes:jpg,png,jpeg|max5848'
 	    ]);
@@ -50,6 +51,7 @@ class PostsController extends Controller
 
 	    $post = new Post;
 	    $post->title = $validatedData['title'];
+	    $post->description = $validatedData['description'];
 	    $post->body = $validatedData['body'];
 	    $post->image = $validatedData['image'];
 	    $post->save();
