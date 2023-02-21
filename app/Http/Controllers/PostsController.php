@@ -16,8 +16,8 @@ class PostsController extends Controller
     // displays the blog index page with the posts
     public function index()
     {
-              $posts = Post::with('user')->paginate(10);
-              return Inertia::render('Blogs', ['posts' => $posts]);
+	$posts = Post::orderBy('created_at', 'desc')->with(['user', 'likes'])->paginate(20);
+	return Inertia::render('Blogs', ['posts' => $posts]);
     }
 
     /**
