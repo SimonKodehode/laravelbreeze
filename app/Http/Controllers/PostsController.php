@@ -19,7 +19,7 @@ class PostsController extends Controller
     public function index()
     {
 	// removed ->with
-	$posts = Post::orderBy('created_at', 'desc')->paginate(20);
+	$posts = Post::orderBy('created_at', 'desc')->with(['user', 'likes'])->paginate(20);
 	return Inertia::render('Blogs', ['posts' => $posts]);
     }
 
