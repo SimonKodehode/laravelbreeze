@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Cviebrock\EloquentSluggable\Services;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 use Inertia\Inertia;
 
 class PostsController extends Controller
@@ -43,6 +45,8 @@ class PostsController extends Controller
 		    'body' => 'required',
 		    'image' => 'required|mimes:jpg,png,jpeg|max5848'
 	    ]);
+
+	    $slug = SlugService::createSlug(Post::class, 'slug', $request->title);
 
 	    $post = new Post;
 	    $post->title = $validatedData['title'];
