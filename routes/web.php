@@ -1,11 +1,10 @@
 <?php
 
-use App\Http\Controllers\PostsController;
+use App\Http\Controllers\BlogPostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +28,7 @@ Route::get('/', function () {
 })->name('home');//Added name for route
 
 Route::middleware(['auth'])->group(function () {
-  Route::get('/blogs', function () {
+  Route::get('/posts', function () {
       return redirect()->route('posts.index');
   });
 
