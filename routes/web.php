@@ -35,7 +35,16 @@ Route::middleware(['auth'])->group(function () {
   Route::resource('posts', BlogPostController::class);
 });
 
-// added routes for comments
+// Added CRUD routes for posts
+Route::get('/posts', [BlogPostController::class, 'index'])->name('posts.index');
+Route::get('/posts/create', [BlogPostController::class, 'create'])->name('posts.create');
+Route::post('/posts', [BlogPostController::class, 'store'])->name('posts.store');
+Route::get('/posts/{slug}', [BlogPostController::class, 'show'])->name('posts.show');
+Route::get('/posts/{slug}/edit', [BlogPostController::class, 'edit'])->name('posts.edit');
+Route::put('/posts/{slug}', [BlogPostController::class, 'update'])->name('posts.update');
+Route::delete('/posts/{slug}', [BlogPostController::class, 'destroy'])->name('posts.destroy');
+
+// added CRUD routes for comments
 Route::post('/posts/{postId}/comments', [CommentController::class, 'store'])->middleware(['auth']);
 Route::get('/comments/{commentId}/edit', [CommentController::class, 'edit'])->middleware(['auth']);
 Route::put('/comments/{commentId}', [CommentController::class, 'update'])->middleware(['auth']);
