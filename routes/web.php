@@ -28,14 +28,13 @@ Route::get('/', function () {
     ]);
 })->name('home');//Added name for route
 
-Route::get('/blogs/new', function () {
-return Inertia::render('NewBlog');
-})->name('blogs.new');
+Route::middleware(['auth'])->group(function () {
+  Route::get('/blogs', function () {
+      return redirect()->route('posts.index');
+  });
 
-// changed blogs route to go through the PostsController with inertia::render
-Route::get('/blogs', [PostsController::class, 'index'])->name('blogs');//Added name here
-
-Route::resource('blogs', PostsController::class);
+  Route::resource('posts', BlogPostController::class);
+});
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
