@@ -35,6 +35,12 @@ Route::middleware(['auth'])->group(function () {
   Route::resource('posts', BlogPostController::class);
 });
 
+// added routes for comments
+Route::post('/posts/{postId}/comments', [CommentController::class, 'store'])->middleware(['auth']);
+Route::get('/comments/{commentId}/edit', [CommentController::class, 'edit'])->middleware(['auth']);
+Route::put('/comments/{commentId}', [CommentController::class, 'update'])->middleware(['auth']);
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
