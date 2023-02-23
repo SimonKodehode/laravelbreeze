@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-	Schema::create('likes', function (Blueprint $table) {
-        $table->unsignedBigInteger('user_id');
-        $table->unsignedBigInteger('post_id');
-        $table->integer('number')->default(0);
-	$table->timestamps();
-    });
+        Schema::create('comments', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('blog_post_id')->constrained()->onDelete('cascade');
+            $table->text('body');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('comments');
     }
 };
