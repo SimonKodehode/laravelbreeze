@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class BlogPostController extends Controller
@@ -42,21 +43,23 @@ class BlogPostController extends Controller
     public function store(Request $request)
     {
 
-      $validatedData = $request->validate([
+      $validated= $request->validate([
             'title' => 'required',
             'body' => 'required',
+            'image' => 'nullable|image',
       ]);
 
-      $slug = Str::slug($validatedData['title'], '-');
+    if ($request->hasFile('image')) {
+      $image = $request->file('image')->store('public/images');
+      $validated['image'] = $image;
+    }
 
-      $post = new BlogPost();
-      $post->title = $validatedData['title'];
-      $post->body = $validatedData['body'];
-      $post->slug = $slug;
-      $post->user_id = auth()->user()->id;
-      $post->save();
+    $validated['slug'] = Str::slug($validated['title']);
 
-      return Redirect::route('posts.index');
+    $blogPost = BlogPost::create($validated);
+
+    return redirect()->route('blog-posts.show', $blogPost->slug);
+
 
 
     }
@@ -96,19 +99,26 @@ class BlogPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BlogPost $post)
+    public function update(Request $request, $id)
     {
-      $validatedData = $request->validate([
+      $validated = $request->validate([
             'title' => 'required',
             'body' => 'required',
+            'image' => 'nullable|image',
         ]);
 
-        $post = BlogPost::where('slug', $slug)->firstOrFail();
-        $post->title = $validatedData['title'];
-        $post->body = $validatedData['body'];
-        $post->save();
+        $post = BlogPost::findOrFail($id);
 
-        return Redirect::route('posts.index');
+        if ($request->hasFile('image')) {
+          Storage::delete($post->image);
+          $image = $request->file('image')->store('public/images');
+          $validated['image'] = $image;
+        }
+
+        $post->update($validated);
+
+        return redirect()->route('posts.show', $post->slug);
+
     }
 
     /**
