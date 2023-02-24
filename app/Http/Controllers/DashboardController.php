@@ -7,11 +7,13 @@ use Inertia\Inertia;
 use App\Models\BlogPost;
 
 class DashboardController extends Controller
+{                       //Added request facade
+  public function index(Request $request)
 {
-  public function index()
-{
-    $user = auth()->user();
-    $posts = $user->posts;
+
+  
+   //Get posts from user making the request
+    $posts = $request->user()->post;
 
     return Inertia::render('Dashboard', ['posts' => $posts]);
 }

@@ -19,6 +19,12 @@ export default {
             }
         },
     },
+
+    props: ["posts"],
+
+    mounted() {
+        console.log(this.posts);
+    },
 };
 </script>
 
