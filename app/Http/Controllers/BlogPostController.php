@@ -42,26 +42,31 @@ class BlogPostController extends Controller
      */
     public function store(Request $request)
     {
+      // Validate input
+    $validated = $request->validate([
+        'title' => 'required|max:255',
+        'body' => 'required',
+        'image' => 'nullable|image|max:2048',
+    ]);
 
-      $validated= $request->validate([
-            'title' => 'required',
-            'body' => 'required',
-            'image' => 'nullable|image',
-      ]);
+    // Create new blog post
+    $post = new BlogPost;
+    $post->title = $validated['title'];
+    $post->body = $validated['body'];
+    $post->slug = Str::slug($validated['title'], '-');
+    $post->user_id = Auth::id(); // set user_id to ID of authenticated user
 
+    // Upload image if present
     if ($request->hasFile('image')) {
-      $image = $request->file('image')->store('public/images');
-      $validated['image'] = $image;
+        $path = $request->file('image')->store('public/images');
+        $post->image = Storage::url($path);
     }
 
-    $validated['slug'] = Str::slug($validated['title']);
+    // Save blog post to database
+    $post->save();
 
-    $blogPost = BlogPost::create($validated);
-
-    return redirect()->route('blog-posts.show', $blogPost->slug);
-
-
-
+    // Redirect to blog post index page
+    return redirect()->route('post.index');
     }
 
     /**
