@@ -50,9 +50,10 @@ Route::get('/comments/{commentId}/edit', [CommentController::class, 'edit'])->mi
 Route::put('/comments/{commentId}', [CommentController::class, 'update'])->middleware(['auth']);
 Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// added route for dashboard with posts
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
