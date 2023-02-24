@@ -145,6 +145,6 @@ class BlogPostController extends Controller
         $post = BlogPost::where('slug', $slug)->firstOrFail();
         $post->delete();
 
-        return Redirect::route('posts.index');
+        return Redirect::route('post.index');
     }
 }
