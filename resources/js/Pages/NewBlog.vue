@@ -13,6 +13,14 @@ export default {
     components: {
         AppLayout,
         Link,
+        Head,
+    },
+
+    methods: {
+        discard() {
+            this.form.title = null;
+            this.form.body = null;
+        },
     },
 };
 </script>
@@ -25,7 +33,8 @@ export default {
             <p class="new-blog-subheader">WHATS ON YOUR MIND?</p>
 
             <form
-                @submit.prevent="($event) => form.post(route(''))"
+                @submit.prevent="($event) => form.post(route('posts.store'))"
+                method="post"
                 class="new-blog-form"
             >
                 <label for="title">TITLE</label>
@@ -36,9 +45,13 @@ export default {
                     <button type="submit" class="new-blog-create">
                         CREATE
                     </button>
-                    <Link :href="route('blogs')" class="new-blog-discard"
-                        >DISCARD</Link
+                    <button
+                        type="button"
+                        class="new-blog-discard"
+                        @click="discard"
                     >
+                        DISCARD
+                    </button>
                 </div>
             </form>
         </section>
