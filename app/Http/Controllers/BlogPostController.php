@@ -31,6 +31,10 @@ class BlogPostController extends Controller
      */
     public function create()
     {
+      if (!auth()->check()) {
+        return redirect()->route('login');
+      }
+
       return Inertia::render('NewBlog');
     }
 
