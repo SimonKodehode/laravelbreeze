@@ -106,24 +106,31 @@ class BlogPostController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $validated = $request->validate([
-            'title' => 'required',
-            'body' => 'required',
-            'image' => 'nullable|image',
-        ]);
+      // Validate input
+    $validated = $request->validate([
+        'title' => 'required|max:255',
+        'body' => 'required',
+        'image' => 'nullable|image|max:2048',
+    ]);
 
-        $post = BlogPost::findOrFail($id);
+    // Create new blog post
+    $post = new BlogPost;
+    $post->title = $validated['title'];
+    $post->body = $validated['body'];
+    $post->slug = Str::slug($validated['title'], '-');
+    $post->user_id = Auth::id(); // set user_id to ID of authenticated user
 
-        if ($request->hasFile('image')) {
-          Storage::delete($post->image);
-          $image = $request->file('image')->store('public/images');
-          $validated['image'] = $image;
-        }
+    // Upload image if present
+    if ($request->hasFile('image')) {
+        $path = $request->file('image')->store('public/images');
+        $post->image = Storage::url($path);
+    }
 
-        $post->update($validated);
+    // Save blog post to database
+    $post->save();
 
-        return redirect()->route('posts.show', $post->slug);
-
+    // Redirect to blog post index page
+    return redirect()->route('post.index');
     }
 
     /**
