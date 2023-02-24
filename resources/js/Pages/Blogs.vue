@@ -11,33 +11,35 @@ export default {
         Link,
     },
 
-    data() {
-        return {
-            data: this.posts.data || null,
-        };
-    },
-
     props: ["posts"],
+
+    mounted() {
+        console.log(this.posts);
+    },
 };
 </script>
 
 <template>
     <Head title="Blogs" />
     <AppLayout>
-        <section class="blog" v-if="data.length > 0">
+        <section class="blog" v-if="posts.length > 0">
             <div class="blog-container">
+                <div class="blog-new-wrap">
+                    <Link class="blog-new" :href="route('posts.create')"
+                        >New post</Link
+                    >
+                </div>
                 <BlogCard
-                    v-for="post in data"
-                    :username="post.user.name"
+                    v-for="post in posts"
                     :created="post.created_at"
                     :title="post.title"
-                    :desc="post.description"
-                    :likes="post.likes"
+                    :desc="post.body"
                 ></BlogCard>
             </div>
         </section>
-        <h1 class="blog-none" v-else>No posts yet</h1>
-
-        <Link class="blog-new" :href="route('blogs.new')">New post</Link>
+        <div class="blog-none" v-else>
+            <h1 class="blog-none-text">No posts yet</h1>
+            <Link class="blog-new" :href="route('posts.create')">New post</Link>
+        </div>
     </AppLayout>
 </template>
