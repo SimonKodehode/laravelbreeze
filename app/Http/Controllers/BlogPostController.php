@@ -65,8 +65,8 @@ class BlogPostController extends Controller
     // Save blog post to database
     $post->save();
 
-    // Redirect to blog post index page
-    return redirect()->route('post.index');
+    // Redirect to blog posts.index page
+    return redirect()->route('posts.index');
     }
 
     /**
@@ -129,8 +129,8 @@ class BlogPostController extends Controller
     // Save blog post to database
     $post->save();
 
-    // Redirect to blog post index page
-    return redirect()->route('post.index');
+    // Redirect to blog posts.index page
+    return redirect()->route('posts.index');
     }
 
     /**
@@ -145,6 +145,6 @@ class BlogPostController extends Controller
         $post = BlogPost::where('slug', $slug)->firstOrFail();
         $post->delete();
 
-        return Redirect::route('post.index');
+        return Redirect::route('posts.index');
     }
 }
