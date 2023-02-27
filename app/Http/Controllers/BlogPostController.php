@@ -19,8 +19,8 @@ class BlogPostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-      $posts = BlogPost::with('likes', 'comments')->latest()->get();
+    {                                               //Added user here
+      $posts = BlogPost::with('likes', 'comments', 'user')->latest()->get();
       return Inertia::render('Blogs', ['posts' => $posts]);
     }
 
@@ -81,8 +81,8 @@ class BlogPostController extends Controller
      */
     public function show($slug)
     {
-      $post = BlogPost::with('likes', 'comments')->where('slug'. $slug)->firstOrFail();
-      return Inertia::render('Blogs', ['post' => $post]);
+      $post = BlogPost::with('likes', 'comments')->where('slug', $slug)->firstOrFail();
+      return Inertia::render('Blog', ['post' => $post]);
     }
 
     /**

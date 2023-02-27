@@ -1,6 +1,6 @@
 <script>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, Link } from "@inertiajs/vue3";
+import { Head, Link, useForm } from "@inertiajs/vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import BlogCard from "@/Components/BlogCard.vue";
 
@@ -13,9 +13,10 @@ export default {
     },
 
     methods: {
-        deleteBlog(id) {
+        deleteBlog(id, e) {
+            e.preventDefault();
             if (confirm("Are you sure?")) {
-                this.$inertia.delete(this.route(""));
+                this.$inertia.delete(this.route("posts.destroy", id));
             }
         },
     },
@@ -36,12 +37,28 @@ export default {
                 Welcome {{ $page.props.auth.user.name }}!
             </h1>
 
-            <div class="dashboard-blog">
-                <header class="dashboard-blog-header">
-                    <p class="dashboard-blog-id">POSTID</p>
-                    <button class="dashboard-blog-delete">DELETE</button>
-                </header>
-                <BlogCard></BlogCard>
+            <div class="dashboard-blog" v-if="posts.length > 0">
+                <div class="dashboard-blog-wrapper" v-for="post in posts">
+                    <header class="dashboard-blog-header">
+                        <p class="dashboard-blog-id">{{ post.id }}</p>
+                        <form>
+                            <button
+                                class="dashboard-blog-delete"
+                                @click="
+                                    ($event) => deleteBlog(post.slug, $event)
+                                "
+                            >
+                                DELETE
+                            </button>
+                        </form>
+                    </header>
+                    <BlogCard
+                        :created="post.created_at"
+                        :title="post.title"
+                        :desc="post.body"
+                        :likes="post.likes"
+                    ></BlogCard>
+                </div>
             </div>
         </section>
     </AppLayout>
