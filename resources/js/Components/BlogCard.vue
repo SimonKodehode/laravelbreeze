@@ -1,15 +1,21 @@
 <script>
+import Comment from "@/Components/Comment.vue";
+
 export default {
     //States
     data() {
         return {
             active: true,
+            comments: false,
         };
     },
 
     methods: {
         setActive() {
             this.active = !this.active;
+        },
+        toggleComments() {
+            this.comments = !this.comments;
         },
     },
 
@@ -21,7 +27,13 @@ export default {
         likes: Number,
     },
 
-    mounted() {},
+    components: {
+        Comment,
+    },
+
+    mounted() {
+        console.log(this.comments);
+    },
 };
 </script>
 
@@ -56,12 +68,43 @@ export default {
                         ></FontAwesomeIcon>
                         <p class="blog-card-likes-number">{{ likes }}</p>
                     </button>
-                    <button class="blog-card-comment">Comment</button>
+                    <button class="blog-card-comment" @click="toggleComments">
+                        Comment
+                    </button>
+                    <div class="blog-card-comments">
+                        <p class="blog-card-comments-username"></p>
+                    </div>
                 </div>
                 <button class="blog-card-readmore" @click="setActive">
                     Minimize
                 </button>
             </footer>
+            <div
+                :class="
+                    comments
+                        ? 'blog-card-comments'
+                        : 'blog-card-comments hidden'
+                "
+            >
+                <form class="blog-card-form">
+                    <textarea
+                        id="comment"
+                        placeholder="Your comment..."
+                    ></textarea>
+                    <div class="blog-card-comments-btn-wrap">
+                        <button class="add">ADD</button>
+                        <button class="cancel">CANCEL</button>
+                    </div>
+                </form>
+                <div class="blog-card-comments-section">
+                    <Comment></Comment>
+                    <Comment></Comment>
+                    <Comment></Comment>
+                    <Comment></Comment>
+                    <Comment></Comment>
+                    <Comment></Comment>
+                </div>
+            </div>
         </div>
     </div>
 </template>

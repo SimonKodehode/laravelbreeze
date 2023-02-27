@@ -8,6 +8,7 @@
         font-family: "Bebas Neue";
         font-size: 35px;
         color: $text;
+        margin-top: 150px;
 
         text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
         @include mq(470px) {
@@ -29,6 +30,19 @@
         padding-block: 20px;
         max-width: 600px;
         margin: auto;
+        width: 90vw;
+    }
+
+    &-new-blog {
+        font-family: "Roboto";
+        font-size: 16px;
+        background: #a8f59b;
+        padding: 10px 15px;
+        box-shadow: 0px 1px 2px #999;
+        width: 100px;
+        &:hover {
+            opacity: 0.6;
+        }
     }
 
     &-blog-header {
@@ -48,5 +62,16 @@
         &:hover {
             opacity: 0.5;
         }
+    }
+}
+
+.no-posts {
+    margin-top: 0;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    &::after {
+        content: "You have no posts";
+        color: mix($text, $bg, $weight: 60%);
     }
 }
