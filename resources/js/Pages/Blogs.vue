@@ -13,9 +13,7 @@ export default {
 
     props: ["posts"],
 
-    mounted() {
-        console.log(this.posts);
-    },
+    mounted() {},
 };
 </script>
 
@@ -35,6 +33,7 @@ export default {
                     :created="post.created_at"
                     :title="post.title"
                     :desc="post.body"
+                    :comments="post.comments"
                 ></BlogCard>
             </div>
         </section>

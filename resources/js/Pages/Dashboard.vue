@@ -33,11 +33,20 @@ export default {
     <Head title="Dashboard" />
     <AppLayout>
         <section class="dashboard">
-            <h1 class="dashboard-headline">
+            <h1
+                :class="
+                    posts.length === 0
+                        ? 'dashboard-headline no-posts'
+                        : 'dashboard-headline'
+                "
+            >
                 Welcome {{ $page.props.auth.user.name }}!
             </h1>
 
             <div class="dashboard-blog" v-if="posts.length > 0">
+                <Link :href="route('posts.create')" class="dashboard-new-blog"
+                    >New post</Link
+                >
                 <div class="dashboard-blog-wrapper" v-for="post in posts">
                     <header class="dashboard-blog-header">
                         <p class="dashboard-blog-id">{{ post.id }}</p>

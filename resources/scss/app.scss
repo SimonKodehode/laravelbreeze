@@ -10,6 +10,9 @@
 @import "./dashboard.scss";
 //New blogpost styles
 @import "./newBlog.scss";
+//Comment styles
+@import "./comment.scss";
+
 .blog {
     display: flex;
     flex-direction: column;

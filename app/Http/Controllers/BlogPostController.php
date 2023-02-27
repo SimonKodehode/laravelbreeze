@@ -80,8 +80,8 @@ class BlogPostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($slug)
-    {
-      $post = BlogPost::with('likes', 'comments')->where('slug', $slug)->firstOrFail();
+    {                                             //Added user here too
+      $post = BlogPost::with('likes', 'comments', 'user')->where('slug', $slug)->firstOrFail();
       return Inertia::render('Blog', ['post' => $post]);
     }
 
