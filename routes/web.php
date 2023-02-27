@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogPostController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Foundation\Application;
@@ -50,6 +51,10 @@ Route::post('/posts/{postId}/comments', [CommentController::class, 'store'])->mi
 Route::get('/comments/{commentId}/edit', [CommentController::class, 'edit'])->middleware(['auth']);
 Route::put('/comments/{commentId}', [CommentController::class, 'update'])->middleware(['auth']);
 Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
+// added CRUD routes for likes
+Route::post('/posts/{post}/like', [LikeController::class, 'store'])->middleware('auth')->name('posts.likes.store');
+Route::delete('/posts/{post}/like', [LikeController::class, 'destroy'])->middleware('auth')->name('posts.likes.destroy');
 
 // added route for dashboard with posts
 Route::middleware(['auth'])->group(function () {
