@@ -31,6 +31,7 @@ export default {
                 </div>
                 <BlogCard
                     v-for="post in posts"
+                    :username="post.user.name"
                     :created="post.created_at"
                     :title="post.title"
                     :desc="post.body"
