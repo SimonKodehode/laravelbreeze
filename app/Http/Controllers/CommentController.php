@@ -4,70 +4,60 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comment;
-use App\Models\BlogPost;
-use Illuminate\Support\Facades\Gate;
+use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-  public function store(Request $request, $postId)
+
+  public function index()
+  {
+    $comments = Comment::all();
+
+        return Inertia::render('Comments/Index', [
+            'comments' => $comments
+        ]);
+  }
+
+  public function store(Request $request)
   {
     $validatedData = $request->validate([
-            'content' => 'required|min:5',
+            'content' => 'required',
+            'post_id' => 'required'
         ]);
 
-        $post = BlogPost::findOrFail($postId);
+        $comment = Comment::create([
+            'content' => $validatedData['content'],
+            'post_id' => $validatedData['blogpost_id'],
+            'user_id' => Auth::id()
+        ]);
 
-        $comment = new Comment();
-        $comment->content = $validatedData['content'];
-        $comment->user_id = Auth::id();
+        return redirect()->route('posts.show', $comment->blogpost->slug);
+  }
 
-        $post->comments()->save($comment);
-
-        return redirect()->back();
-    }
-
-    public function edit($commentId)
+    public function edit(Comment $comment)
     {
-        $comment = Comment::findOrFail($commentId);
-
-        if (Gate::denies('update-comment', $comment)) {
-            abort(403);
-        }
-
-        return inertia('Comments/Edit', [
-            'comment' => $comment,
+      return Inertia::render('Comments/Edit', [
+            'comment' => $comment
         ]);
     }
 
-    public function update(Request $request, $commentId)
+    public function update(Request $request, Comment $comment)
     {
-        $comment = Comment::findOrFail($commentId);
-
-        if (Gate::denies('update-comment', $comment)) {
-            abort(403);
-        }
-
-        $validatedData = $request->validate([
-            'content' => 'required|min:5',
+      $validatedData = $request->validate([
+            'content' => 'required'
         ]);
 
         $comment->content = $validatedData['content'];
         $comment->save();
 
-        return redirect()->route('posts.show', $comment->blog_post_id);
+        return redirect()->route('posts.show', $comment->blogpost->slug);
     }
 
-    public function destroy($commentId)
+    public function destroy(Comment $comment)
     {
-        $comment = Comment::findOrFail($commentId);
+      $comment->delete();
 
-        if (Gate::denies('delete-comment', $comment)) {
-            abort(403);
-        }
-
-        $comment->delete();
-
-        return redirect()->route('posts.show', $comment->blog_post_id);
+      return redirect()->route('posts.show', $comment->blogpost->slug);
     }
   }
