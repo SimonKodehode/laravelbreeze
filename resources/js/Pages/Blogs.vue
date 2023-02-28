@@ -35,6 +35,7 @@ export default {
                     :created="post.created_at"
                     :title="post.title"
                     :desc="post.body"
+                    :likes="post.likes.length"
                     :comments="post.comments"
                     :postId="post.id"
                     :slug="post.slug"

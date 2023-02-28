@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Like;
 use App\Models\BlogPost;
 
+
 class LikeController extends Controller
 {
     /**
@@ -48,14 +49,20 @@ class LikeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $post_id)
+    public function store(Request $request, BlogPost $post)
     {
-        $like = new Like;
-        $like->user_id = Auth::user()->id;
-        $like->post_id = $post_id;
-        $like->save();
+        //Check if post is likedBy user making request
+        if($post->likedBy($request->user())){
+            return response(null, 409);
+        };
         
-        return redirect()->back();
+        //Go into post likes and create new instance of likes and assign to user id
+        $post->likes()->create([
+            'user_id' => $request->user()->id,
+        ]);
+     
+        
+        return back();
     }
 
     /**
