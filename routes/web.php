@@ -4,6 +4,7 @@ use App\Http\Controllers\BlogPostController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -46,8 +47,8 @@ Route::get('/posts/{slug}/edit', [BlogPostController::class, 'edit'])->middlewar
 Route::put('/posts/{slug}', [BlogPostController::class, 'update'])->middleware('auth')->name('posts.update');
 Route::delete('/posts/{slug}', [BlogPostController::class, 'destroy'])->middleware('auth')->name('posts.destroy');
 
-// added CRUD routes for comments
-Route::post('/posts/{postId}/comments', [CommentController::class, 'store'])->middleware(['auth']);
+// added CRUD routes for comments                                                                   //Added name for storing comments
+Route::post('/posts/{slug}/comments', [CommentController::class, 'store'])->middleware(['auth'])->name('comments.store');
 Route::get('/comments/{commentId}/edit', [CommentController::class, 'edit'])->middleware(['auth']);
 Route::put('/comments/{commentId}', [CommentController::class, 'update'])->middleware(['auth']);
 Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->middleware('auth')->name('comments.destroy');

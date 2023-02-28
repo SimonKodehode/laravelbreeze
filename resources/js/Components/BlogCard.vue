@@ -1,12 +1,15 @@
 <script>
 import Comment from "@/Components/Comment.vue";
-
+import { useForm } from "@inertiajs/vue3";
 export default {
     //States
     data() {
         return {
             active: true,
-            comments: false,
+            comment: false,
+            form: useForm({
+                body: null,
+            }),
         };
     },
 
@@ -15,7 +18,12 @@ export default {
             this.active = !this.active;
         },
         toggleComments() {
-            this.comments = !this.comments;
+            this.comment = !this.comment;
+        },
+
+        discard() {
+            this.form.body = null;
+            console.log(this.postId);
         },
     },
 
@@ -24,16 +32,17 @@ export default {
         created: String,
         title: String,
         desc: String,
+        comments: Array,
         likes: Number,
+        postId: Number,
+        slug: String,
     },
 
     components: {
         Comment,
     },
 
-    mounted() {
-        console.log(this.comments);
-    },
+    mounted() {},
 };
 </script>
 
@@ -81,28 +90,34 @@ export default {
             </footer>
             <div
                 :class="
-                    comments
-                        ? 'blog-card-comments'
-                        : 'blog-card-comments hidden'
+                    comment ? 'blog-card-comments' : 'blog-card-comments hidden'
                 "
             >
-                <form class="blog-card-form">
+                <form
+                    @submit.prevent="
+                        ($event) => form.post(route('comments.store', postId))
+                    "
+                    class="blog-card-form"
+                >
                     <textarea
                         id="comment"
                         placeholder="Your comment..."
+                        v-model="form.body"
                     ></textarea>
                     <div class="blog-card-comments-btn-wrap">
-                        <button class="add">ADD</button>
-                        <button class="cancel">CANCEL</button>
+                        <button class="add" type="submit">ADD</button>
+                        <button class="cancel" type="button" @click="discard">
+                            CANCEL
+                        </button>
                     </div>
                 </form>
                 <div class="blog-card-comments-section">
-                    <Comment></Comment>
-                    <Comment></Comment>
-                    <Comment></Comment>
-                    <Comment></Comment>
-                    <Comment></Comment>
-                    <Comment></Comment>
+                    <Comment
+                        v-if="comments"
+                        v-for="comment of comments"
+                        :body="comment.body"
+                        :created="comment.created_at"
+                    ></Comment>
                 </div>
             </div>
         </div>

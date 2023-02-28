@@ -19,20 +19,23 @@ class CommentController extends Controller
         ]);
   }
 
-  public function store(Request $request)
+  public function store(Request $request, $postId)
   {
-    $validatedData = $request->validate([
-            'content' => 'required',
-            'post_id' => 'required'
-        ]);
 
+    //Body instead of content
+    $request->validate([
+            'body' => 'required',
+            
+        ]);
+    //Added request body and request postId
         $comment = Comment::create([
-            'content' => $validatedData['content'],
-            'post_id' => $validatedData['blogpost_id'],
-            'user_id' => Auth::id()
+            'body' => $request->body,
+            'blog_post_id' => $postId,
+            'user_id' => Auth::user()->id,
         ]);
-
-        return redirect()->route('posts.show', $comment->blogpost->slug);
+        
+                //Changed to posts.index this can be changed when things work
+        return redirect()->route('home');
   }
 
     public function edit(Comment $comment)

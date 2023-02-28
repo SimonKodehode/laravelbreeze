@@ -66,6 +66,8 @@ export default {
                         :title="post.title"
                         :desc="post.body"
                         :likes="post.likes"
+                        :postId="post.id"
+                        :slug="post.slug"
                     ></BlogCard>
                 </div>
             </div>
