@@ -38,19 +38,19 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Added CRUD routes for posts
-Route::get('/posts', [BlogPostController::class, 'index'])->name('posts.index');
-Route::get('/posts/create', [BlogPostController::class, 'create'])->name('posts.create');
-Route::post('/posts', [BlogPostController::class, 'store'])->name('posts.store');
-Route::get('/posts/{slug}', [BlogPostController::class, 'show'])->name('posts.show');
-Route::get('/posts/{slug}/edit', [BlogPostController::class, 'edit'])->name('posts.edit');
-Route::put('/posts/{slug}', [BlogPostController::class, 'update'])->name('posts.update');
-Route::delete('/posts/{slug}', [BlogPostController::class, 'destroy'])->name('posts.destroy');
+Route::get('/posts', [BlogPostController::class, 'index'])->middleware('auth')->name('posts.index');
+Route::get('/posts/create', [BlogPostController::class, 'create'])->middleware('auth')->name('posts.create');
+Route::post('/posts', [BlogPostController::class, 'store'])->middleware('auth')->name('posts.store');
+Route::get('/posts/{slug}', [BlogPostController::class, 'show'])->middleware('auth')->name('posts.show');
+Route::get('/posts/{slug}/edit', [BlogPostController::class, 'edit'])->middleware('auth')->name('posts.edit');
+Route::put('/posts/{slug}', [BlogPostController::class, 'update'])->middleware('auth')->name('posts.update');
+Route::delete('/posts/{slug}', [BlogPostController::class, 'destroy'])->middleware('auth')->name('posts.destroy');
 
 // added CRUD routes for comments
 Route::post('/posts/{postId}/comments', [CommentController::class, 'store'])->middleware(['auth']);
 Route::get('/comments/{commentId}/edit', [CommentController::class, 'edit'])->middleware(['auth']);
 Route::put('/comments/{commentId}', [CommentController::class, 'update'])->middleware(['auth']);
-Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->middleware('auth')->name('comments.destroy');
 
 // added CRUD routes for likes
 Route::post('/posts/{post}/like', [LikeController::class, 'store'])->middleware('auth')->name('posts.likes.store');
