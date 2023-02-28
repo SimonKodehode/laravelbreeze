@@ -14,7 +14,7 @@ class CommentController extends Controller
   {
     $comments = Comment::all();
 
-        return Inertia::render('Comments/Index', [
+        return Inertia::render('Blogs', [
             'comments' => $comments
         ]);
   }
@@ -37,7 +37,7 @@ class CommentController extends Controller
 
     public function edit(Comment $comment)
     {
-      return Inertia::render('Comments/Edit', [
+      return Inertia::render('Blogs', [
             'comment' => $comment
         ]);
     }
