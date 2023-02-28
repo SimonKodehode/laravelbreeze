@@ -3,7 +3,7 @@ export default {
     props: {
         username: String,
         created: String,
-        content: String,
+        body: String,
     },
 };
 </script>
@@ -18,11 +18,10 @@ export default {
                 ></FontAwesomeIcon>
                 <h1 class="blog-comment-username">Username</h1>
             </div>
-            <p class="blog-comment-date">March 20</p>
+            <p class="blog-comment-date">{{ created }}</p>
         </header>
         <p class="blog-comment-p">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo,
-            possimus?
+            {{ body }}
         </p>
     </div>
 </template>

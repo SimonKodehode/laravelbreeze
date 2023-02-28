@@ -13,7 +13,9 @@ export default {
 
     props: ["posts"],
 
-    mounted() {},
+    mounted() {
+        console.log(this.posts);
+    },
 };
 </script>
 
@@ -34,6 +36,8 @@ export default {
                     :title="post.title"
                     :desc="post.body"
                     :comments="post.comments"
+                    :postId="post.id"
+                    :slug="post.slug"
                 ></BlogCard>
             </div>
         </section>

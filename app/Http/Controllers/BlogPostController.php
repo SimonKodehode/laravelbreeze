@@ -20,7 +20,7 @@ class BlogPostController extends Controller
      */
     public function index()
     {                                               //Added user here
-      $posts = BlogPost::with('likes', 'comments', 'user')->latest()->get();
+      $posts = BlogPost::with(['likes', 'comments', 'user'])->latest()->get();
       return Inertia::render('Blogs', ['posts' => $posts]);
     }
 
