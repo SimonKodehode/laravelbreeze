@@ -14,7 +14,7 @@ Then:
 cp .env.example .env
 ```
 You probably need to change some things in the .env, most importantly the database authentication.
-and finally
+And finally:
 ```
 ./vendor/bin/sail up -d --build
 ```
