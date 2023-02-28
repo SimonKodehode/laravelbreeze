@@ -18,4 +18,4 @@ and finally
 ```
 ./vendor/bin/sail up -d --build
 ```
-After all of this is completed, you need to generate a key, and do some database migration stuff, and the laravel site will tell you how to do all of this.
+After all of this is completed, you need to generate a key, and do some database migration stuff. The laravel site will tell you how to do all of this.
