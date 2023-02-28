@@ -1,6 +1,6 @@
 <script>
 import Comment from "@/Components/Comment.vue";
-import { useForm } from "@inertiajs/vue3";
+import { useForm, Link } from "@inertiajs/vue3";
 export default {
     //States
     data() {
@@ -40,9 +40,12 @@ export default {
 
     components: {
         Comment,
+        Link,
     },
 
-    mounted() {},
+    mounted() {
+        console.log(this.likes);
+    },
 };
 </script>
 
@@ -70,13 +73,17 @@ export default {
             </div>
             <footer class="blog-card-footer">
                 <div class="blog-card-action">
-                    <button class="blog-card-likes">
+                    <Link
+                        :href="route('posts.likes.store', postId)"
+                        method="post"
+                        class="blog-card-likes"
+                    >
                         <FontAwesomeIcon
                             class="blog-card-like"
                             icon="fa-solid fa-thumbs-up"
                         ></FontAwesomeIcon>
                         <p class="blog-card-likes-number">{{ likes }}</p>
-                    </button>
+                    </Link>
                     <button class="blog-card-comment" @click="toggleComments">
                         Comment
                     </button>
