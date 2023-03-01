@@ -13,9 +13,7 @@ export default {
 
     props: ["posts"],
 
-    mounted() {
-        console.log(this.posts);
-    },
+    mounted() {},
 };
 </script>
 
@@ -40,6 +38,7 @@ export default {
                     :postId="post.id"
                     :slug="post.slug"
                     :blog="post"
+                    :likeuser="post.likes[0]"
                 ></BlogCard>
             </div>
         </section>

@@ -1,15 +1,17 @@
 <script>
 import Comment from "@/Components/Comment.vue";
-import { useForm, Link } from "@inertiajs/vue3";
+import { useForm, Link, usePage } from "@inertiajs/vue3";
 export default {
     //States
     data() {
         return {
             active: true,
             comment: false,
+            setLikedUser: null,
             form: useForm({
                 body: null,
             }),
+            componentKey: 0,
         };
     },
 
@@ -23,7 +25,9 @@ export default {
 
         discard() {
             this.form.body = null;
-            console.log(this.postId);
+        },
+        reRender() {
+            this.componentKey += 1;
         },
     },
 
@@ -37,6 +41,7 @@ export default {
         postId: Number,
         slug: String,
         blog: Object | Array,
+        likeuser: Object,
     },
 
     components: {
@@ -44,14 +49,27 @@ export default {
         Link,
     },
 
+    watch: {
+        componentKey(newVal) {
+            if (newVal) {
+                location.reload();
+            }
+        },
+    },
+
     mounted() {
-        console.log(this.blog);
+        if (
+            this.likeuser &&
+            this.likeuser.user_id === usePage().props.auth.user.id
+        ) {
+            this.setLikedUser = this.likeuser;
+        }
     },
 };
 </script>
 
 <template>
-    <div class="blog-card">
+    <div class="blog-card" :key="componentKey">
         <div class="blog-card-wrapper">
             <header class="blog-card-header">
                 <div class="blog-card-user-wrap">
@@ -75,7 +93,8 @@ export default {
             <footer class="blog-card-footer">
                 <div class="blog-card-action">
                     <Link
-                        v-if="!$page.props.session.message"
+                        @click="reRender"
+                        v-if="!setLikedUser"
                         :href="route('posts.likes.store', blog)"
                         method="post"
                         as="button"
@@ -91,6 +110,7 @@ export default {
                     </Link>
                     <Link
                         v-else
+                        @click="reRender"
                         :href="route('posts.likes.destroy', blog)"
                         method="delete"
                         as="button"
