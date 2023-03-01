@@ -9,7 +9,9 @@ export default {
 
     props: ["post"],
 
-    mounted() {},
+    mounted() {
+        console.log(this.post);
+    },
 };
 </script>
 

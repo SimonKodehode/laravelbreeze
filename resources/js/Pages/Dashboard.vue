@@ -5,6 +5,16 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import BlogCard from "@/Components/BlogCard.vue";
 
 export default {
+    data() {
+        return {
+            isEdit: false,
+            setEditSlug: null,
+            form: useForm({
+                title: null,
+                body: null,
+            }),
+        };
+    },
     components: {
         BlogCard,
         Link,
@@ -19,13 +29,27 @@ export default {
                 this.$inertia.delete(this.route("posts.destroy", id));
             }
         },
+
+        setIsEdit(slug) {
+            this.isEdit = !this.isEdit;
+
+            this.posts.map((post) => {
+                if (post.slug === slug) {
+                    this.setEditSlug = slug;
+                }
+            });
+        },
+
+        discard() {
+            this.isEdit = !this.isEdit;
+            this.form.title = null;
+            this.form.body = null;
+        },
     },
 
     props: ["posts"],
 
-    mounted() {
-        console.log(this.posts);
-    },
+    mounted() {},
 };
 </script>
 
@@ -60,15 +84,55 @@ export default {
                                 DELETE
                             </button>
                         </form>
+                        <form>
+                            <button
+                                class="dashboard-blog-delete"
+                                type="button"
+                                @click="($event) => setIsEdit(post.slug)"
+                            >
+                                EDIT
+                            </button>
+                        </form>
                     </header>
+                    <div v-if="isEdit && setEditSlug === post.slug">
+                        <BlogCard
+                            :created="post.created_at"
+                            :title="post.title"
+                            :desc="post.body"
+                            :postId="post.id"
+                            :slug="post.slug"
+                        >
+                        </BlogCard>
+                        <form
+                            @submit.prevent="
+                                ($event) =>
+                                    form.put(route('posts.update', post.slug))
+                            "
+                            method="put"
+                        >
+                            <label for="title">Title</label>
+                            <input
+                                type="text"
+                                id="title"
+                                v-model="form.title"
+                            />
+                            <label for="body">Body</label>
+                            <input type="text" id="body" v-model="form.body" />
+                            <button type="submit">UPDATE</button>
+                            <button type="button" @click="discard">
+                                DISCARD
+                            </button>
+                        </form>
+                    </div>
                     <BlogCard
+                        v-else
                         :created="post.created_at"
                         :title="post.title"
                         :desc="post.body"
-                        :likes="post.likes"
                         :postId="post.id"
                         :slug="post.slug"
-                    ></BlogCard>
+                    >
+                    </BlogCard>
                 </div>
             </div>
         </section>

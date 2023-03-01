@@ -34,8 +34,8 @@ class CommentController extends Controller
             'user_id' => Auth::user()->id,
         ]);
         
-                //Changed to posts.index this can be changed when things work
-        return redirect()->route('home');
+                //Changed to back
+        return back();
   }
 
     public function edit(Comment $comment)
