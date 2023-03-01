@@ -106,23 +106,14 @@ class LikeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, BlogPost $post)
     {
-        // Get the authenticated user
-        $user = Auth::user();
 
-        // Find the like by its ID
-        $like = Like::findOrFail($request->input('like_id'));
-
-        // Check if the authenticated user owns the like
-        if ($like->user_id !== $user->id) {
-            return redirect()->back()->withErrors(['message' => 'You do not have permission to perform this action.']);
-        }
-
-        // Delete the like
-        $like->delete();
+        
+       //Go into user likes relationship and delete the user like from post
+        $request->user()->likes()->where('blog_post_id', $post->id)->delete();
 
         // Redirect back to the blog post
-        return redirect()->route('post.show', $like->blogPost->slug);
+        return back();
     }
 }
