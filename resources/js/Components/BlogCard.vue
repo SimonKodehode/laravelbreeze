@@ -78,6 +78,7 @@ export default {
                         v-if="!$page.props.session.message"
                         :href="route('posts.likes.store', blog)"
                         method="post"
+                        as="button"
                         class="blog-card-likes"
                     >
                         <FontAwesomeIcon
@@ -90,8 +91,9 @@ export default {
                     </Link>
                     <Link
                         v-else
-                        :href="route('posts.likes.destroy', postId)"
+                        :href="route('posts.likes.destroy', blog)"
                         method="delete"
+                        as="button"
                         class="blog-card-likes"
                     >
                         Unlike
