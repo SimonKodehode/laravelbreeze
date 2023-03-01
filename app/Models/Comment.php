@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Comment extends Model
 {
@@ -19,6 +20,16 @@ class Comment extends Model
     public function post()
     {
         return $this->belongsTo(BlogPost::class);
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->formatLocalized('%d. %B %Y');
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->formatLocalized('%d. %B %Y');
     }
 
 }
