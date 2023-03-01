@@ -2,7 +2,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
-import BlogCard from "@/Components/BlogCard.vue";
+import BlogCardPersonal from "@/Components/BlogCardPersonal.vue";
 
 export default {
     data() {
@@ -16,7 +16,8 @@ export default {
         };
     },
     components: {
-        BlogCard,
+        BlogCardPersonal,
+
         Link,
         Head,
         AppLayout,
@@ -97,7 +98,7 @@ export default {
                         </form>
                     </header>
                     <div v-if="isEdit && setEditSlug === post.slug">
-                        <BlogCard
+                        <BlogCardPersonal
                             :created="post.created_at"
                             :title="post.title"
                             :desc="post.body"
@@ -105,7 +106,7 @@ export default {
                             :slug="post.slug"
                             :blog="post"
                         >
-                        </BlogCard>
+                        </BlogCardPersonal>
                         <form
                             @submit.prevent="
                                 ($event) =>
@@ -127,7 +128,7 @@ export default {
                             </button>
                         </form>
                     </div>
-                    <BlogCard
+                    <BlogCardPersonal
                         v-else
                         :created="post.created_at"
                         :title="post.title"
@@ -136,7 +137,7 @@ export default {
                         :slug="post.slug"
                         :blog="post"
                     >
-                    </BlogCard>
+                    </BlogCardPersonal>
                 </div>
             </div>
         </section>
