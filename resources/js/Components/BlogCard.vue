@@ -33,7 +33,7 @@ export default {
         title: String,
         desc: String,
         comments: Array,
-        likes: Number,
+        likes: Array,
         postId: Number,
         slug: String,
     },
@@ -74,6 +74,7 @@ export default {
             <footer class="blog-card-footer">
                 <div class="blog-card-action">
                     <Link
+                        v-if="!$page.props.session.message"
                         :href="route('posts.likes.store', postId)"
                         method="post"
                         class="blog-card-likes"
@@ -82,7 +83,17 @@ export default {
                             class="blog-card-like"
                             icon="fa-solid fa-thumbs-up"
                         ></FontAwesomeIcon>
-                        <p class="blog-card-likes-number">{{ likes }}</p>
+                        <p class="blog-card-likes-number">
+                            {{ likes ? likes.length : null }}
+                        </p>
+                    </Link>
+                    <Link
+                        v-else
+                        :href="route('posts.likes.destroy', postId)"
+                        method="delete"
+                        class="blog-card-likes"
+                    >
+                        Unlike
                     </Link>
                     <button class="blog-card-comment" @click="toggleComments">
                         Comment

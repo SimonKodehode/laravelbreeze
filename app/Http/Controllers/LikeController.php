@@ -53,7 +53,7 @@ class LikeController extends Controller
     {
         //Check if post is likedBy user making request
         if($post->likedBy($request->user())){
-            return response(null, 409);
+            return back()->with('message', 'liked');
         };
         
         //Go into post likes and create new instance of likes and assign to user id
