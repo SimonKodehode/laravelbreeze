@@ -39,6 +39,7 @@ export default {
                     :comments="post.comments"
                     :postId="post.id"
                     :slug="post.slug"
+                    :blog="post"
                 ></BlogCard>
             </div>
         </section>

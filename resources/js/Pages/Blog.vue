@@ -22,6 +22,8 @@ export default {
             :created="post.created_at"
             :title="post.title"
             :desc="post.body"
+            :likes="post.likes"
+            :blog="post"
         ></BlogCard>
     </AppLayout>
 </template>
