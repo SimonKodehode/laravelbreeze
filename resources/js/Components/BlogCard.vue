@@ -36,6 +36,7 @@ export default {
         likes: Array,
         postId: Number,
         slug: String,
+        blog: Object | Array,
     },
 
     components: {
@@ -44,7 +45,7 @@ export default {
     },
 
     mounted() {
-        console.log(this.likes);
+        console.log(this.blog);
     },
 };
 </script>
@@ -75,7 +76,7 @@ export default {
                 <div class="blog-card-action">
                     <Link
                         v-if="!$page.props.session.message"
-                        :href="route('posts.likes.store', postId)"
+                        :href="route('posts.likes.store', blog)"
                         method="post"
                         class="blog-card-likes"
                     >

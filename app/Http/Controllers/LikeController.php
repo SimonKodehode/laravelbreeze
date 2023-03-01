@@ -51,6 +51,7 @@ class LikeController extends Controller
      */
     public function store(Request $request, BlogPost $post)
     {
+        
         //Check if post is likedBy user making request
         if($post->likedBy($request->user())){
             return back()->with('message', 'liked');

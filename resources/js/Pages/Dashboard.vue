@@ -49,7 +49,9 @@ export default {
 
     props: ["posts"],
 
-    mounted() {},
+    mounted() {
+        console.log(this.posts);
+    },
 };
 </script>
 
@@ -101,6 +103,7 @@ export default {
                             :desc="post.body"
                             :postId="post.id"
                             :slug="post.slug"
+                            :blog="post"
                         >
                         </BlogCard>
                         <form
@@ -131,6 +134,7 @@ export default {
                         :desc="post.body"
                         :postId="post.id"
                         :slug="post.slug"
+                        :blog="post"
                     >
                     </BlogCard>
                 </div>
